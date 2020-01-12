@@ -5,14 +5,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+        -
+      - name: Composer Install
+        run: ls -lha
 
-      - name: Build the stack
-        run: docker-compose up -d
-
-      - name: Composer install
+      - name: Composer Install
         uses: docker://composer:1.9.1
         with:
-          args: install -d=/var/www/html
+          args: install --no-scripts -d=src
+
+      - name: Stack Build
+        run: docker-compose up -d
 
       - name: Clear Cache
         run: docker exec web php bin/console c:c
