@@ -12,7 +12,7 @@ jobs:
       - name: Composer Install
         uses: docker://composer:1.9.1
         with:
-          args: install --no-scripts -d=src
+          args: install --no-scripts -d=/home/runner/work/DnDMaster/DnDMaster/src
 
       - name: Stack Build
         run: docker-compose up -d
