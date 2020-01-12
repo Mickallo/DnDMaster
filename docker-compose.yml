@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   web:
+    container_name: web
     depends_on:
       - db
     build: infra/web
@@ -19,6 +20,7 @@ services:
       DB_NAME: postgres
 
   db:
+    container_name: db
     image: postgres:latest
     restart: always
     ports:
