@@ -7,4 +7,5 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Build the stack
-        run: docker-compose up -d
+        run: docker-compose up -d \
+        docker exec -it web echo "hello"
