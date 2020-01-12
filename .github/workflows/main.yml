@@ -6,16 +6,5 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Composer Install
-        run: pwd && ls -lha
-
-      - name: Composer Install
-        uses: docker://composer:1.9.1
-        with:
-          args: install --no-scripts -d=/home/runner/work/DnDMaster/DnDMaster/src
-
       - name: Stack Build
         run: docker-compose up -d
-
-      - name: Clear Cache
-        run: docker exec web php bin/console c:c
