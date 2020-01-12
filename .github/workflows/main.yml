@@ -12,7 +12,7 @@ jobs:
       - name: Composer install
         uses: docker://composer:1.9.1
         with:
-          args: install
+          args: install -d=src
 
       - name: Clear Cache
         run: docker exec web php bin/console c:c
