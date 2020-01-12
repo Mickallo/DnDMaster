@@ -7,4 +7,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Build the stack
-        run: docker-compose up -d && docker exec web bin/console c:c
+        run: docker-compose up -d
+
+      - name: Cache clear
+        run: docker exec web bin/console c:c
