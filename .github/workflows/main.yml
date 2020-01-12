@@ -9,5 +9,5 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d
 
-      - name: Cache clear
-        run: docker exec web bin/console c:c
+      - name: Clear Cache
+        run: docker exec web php bin/console c:c
