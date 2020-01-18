@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Character\Domain;
 
+use App\Character\Domain\ValueType\Uuid;
 use App\Common\DDD\Event;
-use App\Common\DDD\Uuid;
 
 final class CharacterCreated implements Event
 {

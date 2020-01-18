@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Common\DDD;
+namespace App\Character\Domain\ValueType;
 
 class Uuid
 {

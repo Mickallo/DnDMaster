@@ -27,7 +27,7 @@ final class CreateCharacterCommandHandler implements CommandHandler
 
         return CommandResponse::withValue(
             $character,
-            new CharacterCreated($character->id())
+            new CharacterCreated($character->uuid())
         );
     }
 

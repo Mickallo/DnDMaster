@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Character\Application\Query;
 
-use App\Character\Application\ViewModel\CharacterViewModel;
-use App\Character\Domain\ReadModel\Character;
 use App\Character\Domain\ReadModel\CharacterRepository;
+use App\Character\Domain\ValueType\Uuid;
 use App\Common\DDD\Query;
 use App\Common\DDD\QueryHandler;
 use App\Common\DDD\QueryResponse;
 
-class ListCharactersQueryHandler implements QueryHandler
+class ShowCharacterQueryHandler implements QueryHandler
 {
     private CharacterRepository $repository;
 
@@ -23,17 +22,12 @@ class ListCharactersQueryHandler implements QueryHandler
     public function handle(Query $query): QueryResponse
     {
         return QueryResponse::withValue(
-            array_map(
-                function (Character $character) {
-                    return CharacterViewModel::fromEntity($character);
-                },
-                $this->repository->list()
-            )
+            $this->repository->show(Uuid::fromString($query->uuid))
         );
     }
 
     public function listenTo(): string
     {
-        return ListCharactersQuery::class;
+        return ShowCharacterQuery::class;
     }
 }

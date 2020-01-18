@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Character\Infrastructure\Doctrine\Repository;
 
 use App\Character\Domain\Character;
-use App\Character\Domain\CharacterRepository;
-use App\Common\DDD\Uuid;
+use App\Character\Domain\CharacterRepository as CharacterRepositoryInterface;
+use App\Character\Domain\ValueType\Uuid;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
-final class CharacterDoctrineRepository implements CharacterRepository
+final class CharacterRepository implements CharacterRepositoryInterface
 {
     private ManagerRegistry $registry;
 
@@ -43,9 +43,9 @@ final class CharacterDoctrineRepository implements CharacterRepository
         $this->save($character);
     }
 
-    public function delete(Uuid $id): void
+    public function delete(Uuid $uuid): void
     {
-        $character = $this->registry->getManager()->getPartialReference(Character::class, ['id' => $id]);
+        $character = $this->registry->getManager()->getPartialReference(Character::class, ['uuid' => $uuid]);
         $this->registry->getManager()->remove($character);
     }
 }

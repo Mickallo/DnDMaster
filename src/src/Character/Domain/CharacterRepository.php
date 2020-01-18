@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Character\Domain;
 
+use App\Character\Domain\ValueType\Uuid;
 use App\Common\DDD\Repository;
-use App\Common\DDD\Uuid;
 
 interface CharacterRepository extends Repository
 {

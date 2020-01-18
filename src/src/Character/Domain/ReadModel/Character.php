@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Character\Domain;
+namespace App\Character\Domain\ReadModel;
 
 use App\Character\Domain\ValueType\Uuid;
 
-final class Character
+class Character
 {
     private Uuid $uuid;
     private string $name;
 
-    private function __construct(
-        Uuid $uuid,
-        string $name = 'John'
-    ) {
+    private function __construct(Uuid $uuid, string $name)
+    {
         $this->uuid = $uuid;
         $this->name = $name;
     }
 
-    public static function create(): self
+    public static function create(Uuid $uuid, string $name): self
     {
-        return new self(Uuid::create());
+        return new self($uuid, $name);
     }
 
     public function uuid(): Uuid
@@ -32,10 +30,5 @@ final class Character
     public function name(): string
     {
         return $this->name;
-    }
-
-    public function generateName(): void
-    {
-        $this->name = 'dritz';
     }
 }

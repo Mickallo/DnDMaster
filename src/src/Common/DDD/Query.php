@@ -6,4 +6,5 @@ namespace App\Common\DDD;
 
 interface Query
 {
+    public function identifier(): string;
 }

@@ -13,4 +13,4 @@ services:
 
 imports:
     - { resource: "../src/Common/Infrastructure/Resources/config/services.yaml"}
-    - { resource: "../src/Character/Infrastructure/Resources/config/services.yaml"}
+    - { resource: "../src/Character/Infrastructure/Symfony/config/services.yaml"}

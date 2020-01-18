@@ -26,8 +26,12 @@ services:
 
     app.common.query_bus:
         class: App\Common\Infrastructure\QueryBus
-        arguments: ['@app.common.querybus.middleware.dispatcher']
+        arguments: ['@app.common.querybus.middleware.cacher']
     App\Common\DDD\QueryBus: '@app.common.query_bus'
+
+    app.common.querybus.middleware.cacher:
+        class: App\Common\Infrastructure\QueryBusMiddleware\Cacher
+        arguments: ['@app.common.querybus.middleware.dispatcher', '@cache.app']
 
     app.common.querybus.middleware.dispatcher:
         class: App\Common\Infrastructure\QueryBusMiddleware\Dispatcher

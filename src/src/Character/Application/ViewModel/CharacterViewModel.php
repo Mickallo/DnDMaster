@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Character\Application\ViewModel;
 
-use App\Character\Domain\Character;
-use App\Common\DDD\Uuid;
+use App\Character\Domain\ReadModel\Character;
+use App\Character\Domain\ValueType\Uuid;
 
 class CharacterViewModel
 {
-    public string $id;
+    public string $uuid;
     public string $name;
 
-    private function __construct(Uuid $id, string $name)
+    private function __construct(Uuid $uuid, string $name)
     {
-        $this->id = (string) $id;
+        $this->uuid = (string) $uuid;
         $this->name = $name;
     }
 
     public static function fromEntity(Character $character)
     {
-        return new self($character->id(), $character->name());
+        return new self($character->uuid(), $character->name());
     }
 }

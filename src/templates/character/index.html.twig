@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Uuid</th>
                 <th>Name</th>
                 <th>actions</th>
             </tr>
@@ -16,10 +16,10 @@
         <tbody>
         {% for character in characters %}
             <tr>
-                <td>{{ character.id }}</td>
+                <td>{{ character.uuid }}</td>
                 <td>{{ character.name }}</td>
                 <td>
-{#                    <a href="{{ path('character_show', {'id': character.id}) }}">show</a>#}
+                    <a href="{{ path('character_show', {'uuid': character.uuid}) }}">show</a>
 {#                    <a href="{{ path('character_edit', {'id': character.id}) }}">edit</a>#}
                 </td>
             </tr>

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Infrastructure\Types;
+namespace App\Character\Infrastructure\Doctrine\Types;
 
-use App\Common\DDD\Uuid;
+use App\Character\Domain\ValueType\Uuid;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-class UuidDoctrineType extends Type
+class UuidType extends Type
 {
     const NAME = 'uuid';
 
