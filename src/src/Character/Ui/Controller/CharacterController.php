@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Character\Ui\Controller;
 
 use App\Character\Application\Command\CreateCharacterCommand;
+use App\Character\Application\Command\DeleteCharacterCommand;
 use App\Character\Application\Query\ListCharactersQuery;
 use App\Character\Application\Query\ShowCharacterQuery;
 use App\Common\DDD\CommandBus;
@@ -57,7 +58,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/{uuid}", name="character_show")
+     * @Route("/{uuid}", name="character_show", methods={"GET"})
      */
     public function show(string $uuid): Response
     {
@@ -68,5 +69,17 @@ class CharacterController extends AbstractController
         return $this->render('character/show.html.twig', [
             'character' => $response->value(),
         ]);
+    }
+
+    /**
+     * @Route("/{uuid}", name="character_delete", methods={"DELETE"})
+     */
+    public function delete(string $uuid): Response
+    {
+        $command = DeleteCharacterCommand::create($uuid);
+
+        $this->commandBus->dispatch($command);
+
+        return $this->redirectToRoute('character_index');
     }
 }

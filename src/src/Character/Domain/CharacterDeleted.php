@@ -7,7 +7,7 @@ namespace App\Character\Domain;
 use App\Character\Domain\ValueType\Uuid;
 use App\Common\DDD\Event;
 
-final class CharacterCreated implements Event
+final class CharacterDeleted implements Event
 {
     public Uuid $characterUuid;
 

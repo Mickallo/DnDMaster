@@ -2,10 +2,6 @@
 
 namespace App;
 
-use App\Common\DDD\CommandBusMiddleware;
-use App\Common\DDD\CommandHandler;
-use App\Common\DDD\EventHandler;
-use App\Common\DDD\QueryHandler;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -54,13 +50,5 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/'.$this->environment.'/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
-    }
-
-    protected function build(ContainerBuilder $container)
-    {
-        $container->registerForAutoconfiguration(CommandHandler::class)->addTag('ddd.command_handler');
-        $container->registerForAutoconfiguration(QueryHandler::class)->addTag('ddd.query_handler');
-        $container->registerForAutoconfiguration(EventHandler::class)->addTag('ddd.event_handler');
-        $container->registerForAutoconfiguration(CommandBusMiddleware::class)->addTag('ddd.commandbus_middleware');
     }
 }

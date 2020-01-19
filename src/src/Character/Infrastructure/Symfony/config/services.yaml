@@ -3,14 +3,6 @@ services:
         autowire: true
         autoconfigure: true
 
-    # Application
-    App\Character\Application\Command\:
-        resource: '../../../Application/Command'
-    App\Character\Application\Event\:
-        resource: '../../../Application/Event'
-    App\Character\Application\Query\:
-        resource: '../../../Application/Query'
-
     # Infrastructure
     App\Character\Domain\CharacterRepository:
         class: App\Character\Infrastructure\Doctrine\Repository\CharacterRepository

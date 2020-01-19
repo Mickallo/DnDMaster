@@ -29,7 +29,7 @@ class Cacher implements QueryBusMiddleware
         if (!$item->isHit()) {
             $queryResponse = $this->next->dispatch($query);
             $item->set($queryResponse);
-            $item->expiresAfter(10);
+            $item->expiresAfter(30);
             $this->cache->save($item);
         } else {
             $queryResponse = $item->get();
