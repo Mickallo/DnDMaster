@@ -11,7 +11,7 @@ use App\Common\DDD\Command;
 use App\Common\DDD\CommandHandler;
 use App\Common\DDD\CommandResponse;
 
-final class CreateCharacterCommandHandler implements CommandHandler
+final class NewCharacterCommandHandler implements CommandHandler
 {
     private CharacterRepository $repository;
 
@@ -22,17 +22,17 @@ final class CreateCharacterCommandHandler implements CommandHandler
 
     public function handle(Command $command): CommandResponse
     {
-        $character = Character::create();
+        $character = Character::create($command->name);
         $this->repository->add($character);
 
         return CommandResponse::withValue(
-            $character,
+            null,
             new CharacterCreated($character->uuid())
         );
     }
 
     public function listenTo(): string
     {
-        return CreateCharacterCommand::class;
+        return NewCharacterCommand::class;
     }
 }

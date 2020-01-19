@@ -13,15 +13,15 @@ final class Character
 
     private function __construct(
         Uuid $uuid,
-        string $name = 'John'
+        string $name
     ) {
         $this->uuid = $uuid;
         $this->name = $name;
     }
 
-    public static function create(): self
+    public static function create(string $name): self
     {
-        return new self(Uuid::create());
+        return new self(Uuid::create(), $name);
     }
 
     public function uuid(): Uuid

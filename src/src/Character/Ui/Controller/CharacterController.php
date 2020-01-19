@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Character\Ui\Controller;
 
 use App\Character\Application\Command\ChangeCharacterNameCommand;
-use App\Character\Application\Command\CreateCharacterCommand;
 use App\Character\Application\Command\DeleteCharacterCommand;
+use App\Character\Application\Command\NewCharacterCommand;
 use App\Character\Application\Query\ListCharactersQuery;
 use App\Character\Application\Query\ShowCharacterQuery;
 use App\Common\DDD\CommandBus;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/character")
+ * @Route("/character", name="character_")
  */
 class CharacterController extends AbstractController
 {
@@ -36,33 +36,59 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/", name="character_index", methods={"GET"})
+     * @Route("/", name="list", methods={"GET"})
      */
     public function index(): Response
     {
         $response = $this->queryBus->dispatch(ListCharactersQuery::create());
 
-        return $this->render('character/index.html.twig', [
+        return $this->render('character/list.html.twig', [
             'characters' => $response->value(),
         ]);
     }
 
     /**
-     * @Route("/create", name="character_create", methods={"GET"})
+     * @Route("/new", name="new", methods={"GET","POST"})
      */
-    public function create(): Response
+    public function new(Request $request): Response
     {
-        $command = new CreateCharacterCommand();
+        $name = 'Drizzt do\'urden';
+        $command = new NewCharacterCommand($name);
 
-        $response = $this->commandBus->dispatch($command);
+        $form = $this->createFormBuilder($command)
+            ->add('name', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Save'])
+            ->getForm();
 
-        return $this->render('character/index.html.twig', [
-            'characters' => [$response->value()],
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $command = $form->getData();
+            $this->commandBus->dispatch($command);
+
+            return $this->redirectToRoute('character_list');
+        }
+
+        return $this->render('character/new.html.twig', [
+            'form' => $form->createView(),
+            $command,
         ]);
     }
 
     /**
-     * @Route("/{uuid}", name="character_show", methods={"GET"})
+     * @Route("/{uuid}", name="delete", methods={"DELETE"})
+     */
+    public function delete(string $uuid): Response
+    {
+        $command = DeleteCharacterCommand::create($uuid);
+
+        $this->commandBus->dispatch($command);
+
+        return $this->redirectToRoute('character_list');
+    }
+
+    /**
+     * @Route("/{uuid}", name="show", methods={"GET"})
      */
     public function show(string $uuid): Response
     {
@@ -76,19 +102,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/{uuid}", name="character_delete", methods={"DELETE"})
-     */
-    public function delete(string $uuid): Response
-    {
-        $command = DeleteCharacterCommand::create($uuid);
-
-        $this->commandBus->dispatch($command);
-
-        return $this->redirectToRoute('character_index');
-    }
-
-    /**
-     * @Route("/{uuid}/change-name", name="character_change_name", methods={"GET","POST"})
+     * @Route("/{uuid}/change-name", name="change_name", methods={"GET","POST"})
      */
     public function change_name(Request $request, string $uuid): Response
     {
@@ -106,10 +120,10 @@ class CharacterController extends AbstractController
             $command = $form->getData();
             $this->commandBus->dispatch($command);
 
-            return $this->redirectToRoute('character_index');
+            return $this->redirectToRoute('character_list');
         }
 
-        return $this->render('character/edit.html.twig', [
+        return $this->render('character/change_name.html.twig', [
             'form' => $form->createView(),
             'character' => $character,
         ]);

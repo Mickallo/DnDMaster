@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Character list</h1>
 
+    <a href="{{ path('character_new') }}">Create new</a>
+
     <table class="table">
         <thead>
             <tr>
@@ -30,5 +32,4 @@
         </tbody>
     </table>
 
-{#    <a href="{{ path('character_new') }}">Create new</a>#}
 {% endblock %}
