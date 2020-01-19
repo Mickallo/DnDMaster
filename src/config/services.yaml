@@ -11,6 +11,24 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+    App\Common\DDD\CommandBus:
+        factory: ['App\Service\CommandBusFactory','build']
+        arguments:
+            - !tagged ddd.command_handler
+            - '@logger'
+            - '@doctrine'
+            - '@app.event_bus'
+
+    app.event_bus:
+        class: App\Common\DDD\EventBus
+        factory: ['App\Service\EventBusFactory','build']
+        arguments: [!tagged ddd.event_handler]
+
+    App\Common\DDD\QueryBus:
+        factory: ['App\Service\QueryBusFactory','build']
+        arguments:
+            - !tagged ddd.query_handler
+            - '@cache.app'
+            -
 imports:
-    - { resource: "../src/Common/Infrastructure/Resources/config/services.yaml"}
     - { resource: "../src/Character/Infrastructure/Symfony/config/services.yaml"}

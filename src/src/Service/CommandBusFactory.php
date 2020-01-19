@@ -6,10 +6,10 @@ namespace App\Service;
 
 use App\Common\DDD\CommandBus;
 use App\Common\DDD\EventBus;
-use App\Common\Infrastructure\CommandBusMiddleware\Dispatcher;
-use App\Common\Infrastructure\CommandBusMiddleware\DoctrineFlush;
-use App\Common\Infrastructure\CommandBusMiddleware\EventDispatcher;
-use App\Common\Infrastructure\CommandBusMiddleware\Logger;
+use App\Service\CommandBusMiddleware\Dispatcher;
+use App\Service\CommandBusMiddleware\DoctrineFlush;
+use App\Service\CommandBusMiddleware\EventDispatcher;
+use App\Service\CommandBusMiddleware\Logger;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 

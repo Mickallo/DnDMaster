@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Common\DDD\QueryBus;
-use App\Common\Infrastructure\QueryBusMiddleware\Cacher;
-use App\Common\Infrastructure\QueryBusMiddleware\Dispatcher;
+use App\Service\QueryBusMiddleware\Cacher;
+use App\Service\QueryBusMiddleware\Dispatcher;
 use Psr\Cache\CacheItemPoolInterface;
 
 class QueryBusFactory

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Infrastructure\QueryBusMiddleware;
+namespace App\Service\QueryBusMiddleware;
 
 use App\Common\DDD\Query;
 use App\Common\DDD\QueryBusMiddleware;

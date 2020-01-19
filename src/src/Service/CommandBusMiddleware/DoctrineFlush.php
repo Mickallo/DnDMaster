@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Infrastructure\CommandBusMiddleware;
+namespace App\Service\CommandBusMiddleware;
 
 use App\Common\DDD\Command;
 use App\Common\DDD\CommandBusMiddleware;

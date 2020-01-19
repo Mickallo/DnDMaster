@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Common\DDD\EventBus;
-use App\Common\Infrastructure\EventBusMiddleware\Dispatcher;
+use App\Service\EventBusMiddleware\Dispatcher;
 
 class EventBusFactory
 {
