@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Infrastructure;
+namespace App\Common\Infrastructure\EventBusMiddleware;
 
 use App\Common\DDD\Event;
 use App\Common\DDD\EventHandler;
 
-class EventBus implements \App\Common\DDD\EventBus
+class Dispatcher implements \App\Common\DDD\EventBusMiddleware
 {
     private array $handlers = [];
 

@@ -7,14 +7,14 @@ namespace App\Common\Infrastructure\QueryBusMiddleware;
 use App\Common\DDD\Query;
 use App\Common\DDD\QueryBusMiddleware;
 use App\Common\DDD\QueryResponse;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Psr\Cache\CacheItemPoolInterface;
 
 class Cacher implements QueryBusMiddleware
 {
     private QueryBusMiddleware $next;
-    private AdapterInterface $cache;
+    private CacheItemPoolInterface $cache;
 
-    public function __construct(QueryBusMiddleware $next, AdapterInterface $cache)
+    public function __construct(QueryBusMiddleware $next, CacheItemPoolInterface $cache)
     {
         $this->next = $next;
         $this->cache = $cache;
@@ -23,7 +23,9 @@ class Cacher implements QueryBusMiddleware
     public function dispatch(Query $query): QueryResponse
     {
         $key = md5($query->identifier());
+
         $item = $this->cache->getItem($key);
+
         if (!$item->isHit()) {
             $queryResponse = $this->next->dispatch($query);
             $item->set($queryResponse);

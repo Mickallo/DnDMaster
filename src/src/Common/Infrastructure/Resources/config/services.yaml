@@ -1,41 +1,20 @@
 services:
-    app.common.event_bus:
-        class: App\Common\Infrastructure\EventBus
+    App\Common\DDD\CommandBus:
+        factory: ['App\Service\CommandBusFactory','build']
+        arguments:
+            - !tagged ddd.command_handler
+            - '@logger'
+            - '@doctrine'
+            - '@app.event_bus'
+
+    app.event_bus:
+        class: App\Common\DDD\EventBus
+        factory: ['App\Service\EventBusFactory','build']
         arguments: [!tagged ddd.event_handler]
 
-    app.common.command_bus:
-        class: App\Common\Infrastructure\CommandBus
-        arguments: ['@app.common.commandbus.middleware.logger']
-    App\Common\DDD\CommandBus: '@app.common.command_bus'
 
-    app.common.commandbus.middleware.logger:
-        class: App\Common\Infrastructure\CommandBusMiddleware\Logger
-        arguments: ['@app.common.commandbus.middleware.doctrine_flush', '@logger']
-
-    app.common.commandbus.middleware.doctrine_flush:
-        class: App\Common\Infrastructure\CommandBusMiddleware\DoctrineFlush
-        arguments: ['@app.common.commandbus.middleware.event_dispatcher', '@doctrine']
-
-    app.common.commandbus.middleware.event_dispatcher:
-        class: App\Common\Infrastructure\CommandBusMiddleware\EventDispatcher
-        arguments: ['@app.common.commandbus.middleware.dispatcher', '@app.common.event_bus']
-
-    app.common.commandbus.middleware.dispatcher:
-        class: App\Common\Infrastructure\CommandBusMiddleware\Dispatcher
-        arguments: [!tagged ddd.command_handler]
-
-    app.common.query_bus:
-        class: App\Common\Infrastructure\QueryBus
-        arguments: ['@app.common.querybus.middleware.cacher']
-    App\Common\DDD\QueryBus: '@app.common.query_bus'
-
-    app.common.querybus.middleware.cacher:
-        class: App\Common\Infrastructure\QueryBusMiddleware\Cacher
-        arguments: ['@app.common.querybus.middleware.dispatcher', '@cache.app']
-
-    app.common.querybus.middleware.dispatcher:
-        class: App\Common\Infrastructure\QueryBusMiddleware\Dispatcher
-        arguments: [!tagged ddd.query_handler]
-
-
-
+    App\Common\DDD\QueryBus:
+        factory: ['App\Service\QueryBusFactory','build']
+        arguments:
+            - !tagged ddd.query_handler
+            - '@cache.app'

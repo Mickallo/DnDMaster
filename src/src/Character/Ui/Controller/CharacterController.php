@@ -7,7 +7,6 @@ namespace App\Character\Ui\Controller;
 use App\Character\Application\Command\CreateCharacterCommand;
 use App\Character\Application\Query\ListCharactersQuery;
 use App\Character\Application\Query\ShowCharacterQuery;
-use App\Character\Domain\ReadModel\Character;
 use App\Common\DDD\CommandBus;
 use App\Common\DDD\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
