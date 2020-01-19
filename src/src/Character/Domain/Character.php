@@ -34,8 +34,8 @@ final class Character
         return $this->name;
     }
 
-    public function generateName(): void
+    public function changeName(string $name): void
     {
-        $this->name = 'dritz';
+        $this->name = $name;
     }
 }

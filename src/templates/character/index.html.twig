@@ -19,9 +19,7 @@
                 <td>{{ character.uuid }}</td>
                 <td>{{ character.name }}</td>
                 <td><a href="{{ path('character_show', {'uuid': character.uuid}) }}">show</a></td>
-{#                    <a href="{{ path('character_edit', {'id': character.id}) }}">edit</a>#}
-
-
+                <td><a href="{{ path('character_change_name', {'uuid': character.uuid}) }}">change name</a></td>
                 <td>{{ include('character/_delete_form.html.twig') }}</td>
             </tr>
         {% else %}
